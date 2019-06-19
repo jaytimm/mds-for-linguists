@@ -7,7 +7,8 @@
     -   [Visualizing model results](#visualizing-model-results)
     -   [Cutting lines & roll call polarity via
         `wnomadds`](#cutting-lines-roll-call-polarity-via-wnomadds)
-    -   [Faceted cutting lines](#faceted-cutting-lines)
+    -   [Facet cutting lines by
+        language](#facet-cutting-lines-by-language)
 -   [Using `anominate`](#using-anominate)
 -   [References](#references)
 
@@ -55,7 +56,7 @@ using data from 140 pronouns in 40 languages. Data are made available
 [here](https://github.com/jaytimm/mds_for_linguists_using_R/blob/master/resources/Indefprn13.txt).
 
 ``` r
-local_data <- '/home/jtimm/Desktop/GitHub/git_projects/MDS_for_Linguists/resources'
+local_data <- '/home/jtimm/Desktop/GitHub/git_projects/mds_for_linguists/resources'
 ```
 
 Load data set:
@@ -74,7 +75,8 @@ analagous to roll calls (ie, votes) in the NOMINATE model.
 
 A value of 1 in the table below means that a given form expresses a
 particular meaning; a value of 6 means that a given form does not
-express that particular meaning.
+express that particular meaning. Missing data are specified with the
+value 9.
 
 ``` r
 knitr::kable(raw_data[,1:9]) 
@@ -403,11 +405,13 @@ base_2D +
 
 ![](figures/figure-markdown_github/unnamed-chunk-19-1.png)
 
-### Faceted cutting lines
+### Facet cutting lines by language
 
 ``` r
+#Extract language code from language-specific grammatical forms
 with_cuts$lang <- gsub('[A-Za-z]', '', with_cuts$Bill_Code)
 
+#Filter cutting line data set to first six language codes.
 facet_cuts <- subset(with_cuts, lang %in% c('01', '02', '03', '04', '05', '06'))
 
 base_2D +

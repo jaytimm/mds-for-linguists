@@ -48,7 +48,7 @@ Data set:  A 9 x 140 data frame: Nine indefinite pronominal meanings, using data
 
 
 ```{r}
-local_data <- '/home/jtimm/Desktop/GitHub/git_projects/MDS_for_Linguists/resources'
+local_data <- '/home/jtimm/Desktop/GitHub/git_projects/mds_for_linguists/resources'
 ```
 
 
@@ -65,7 +65,7 @@ raw_data <- read.csv("Indefprn13.txt",
 
 A portion of the data frame is presented below.  Rows contain functions/meanings, and are analagous to legislators in the NOMINATE model.  Columns contain language-specific grammatical forms, and are analagous to roll calls (ie, votes) in the NOMINATE model.  
 
-A value of 1 in the table below means that a given form expresses a particular meaning; a value of 6 means that a given form does not express that particular meaning. 
+A value of 1 in the table below means that a given form expresses a particular meaning; a value of 6 means that a given form does not express that particular meaning.  Missing data are specified with the value 9.
 
 
 ```{r message=FALSE, warning=FALSE}
@@ -354,11 +354,13 @@ base_2D +
 
 
 
-### Faceted cutting lines
+### Facet cutting lines by language
 
-```{r fig.height=7}
+```{r fig.height=6}
+#Extract language code from language-specific grammatical forms
 with_cuts$lang <- gsub('[A-Za-z]', '', with_cuts$Bill_Code)
 
+#Filter cutting line data set to first six language codes.
 facet_cuts <- subset(with_cuts, lang %in% c('01', '02', '03', '04', '05', '06'))
 
 base_2D +
