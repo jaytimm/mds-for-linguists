@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 **An R-based guide for linguistic typologists** interested in applying [NOMINATE](https://voteview.com/about) multidimensional scaling (MDS) techniques to linguistic data as presented in [Croft](http://www.unm.edu/~wcroft/) and [Poole](https://polisci.ucsd.edu/about-our-people/faculty/faculty-directory/emeriti-faculty/poole-profile.html), "Inferring universals from grammatical variation: multidimensional scaling for typological analysis" (*Theoretical Linguistics* 34.1-37, 2008)." [[Abstract]](https://www.degruyter.com/view/j/thli.2008.34.issue-1/thli.2008.001/thli.2008.001.xml)
 
 
-This guide provides a brief summary of an R-based workflow for model implementation and the visualization of model results within the `ggplot` data visualization framework; a cross-linguistic data set of indefinite pronouns from Haspelmath (1997) is utilized (and made available) here for demonstration purposes. For more thoughtful discussions regarding theory and scaling procedures, see reference section.
+This guide provides a brief summary of an R-based workflow for model implementation and the visualization of model results within the `ggplot` data visualization framework.  A cross-linguistic data set of indefinite pronouns from Haspelmath (1997) is utilized (and made available) here for demonstration purposes. For more thoughtful discussions regarding theory, scaling procedures & model interpretation, see reference section.
 
 ***
 
@@ -130,8 +130,6 @@ list('1D' = ideal_points_1D$fits,
 
 ### Visualizing model results
 
-A series of plots built using the `ggplot` data visualization framework.  
-
 
 #### A one-dimensional solution 
 
@@ -222,7 +220,7 @@ base_2D +
 
 ### Cutting lines & roll call polarity via `wnomadds`
 
-I have developed a simple R package, `wnomadds`, that facilitates the plotting of roll call cutting lines and roll call polarities within the `ggplot` visualization paradigm.  While `wnominate` provides functionality for plotting cutting lines, only plotting in base R is supported.  The `wnm_get_cutlines` function extracts cutting line coordinates from `wnominate` model results, along with coordinates specifying the direction of majority Yea votes for a given roll call (ie, vote polarity). Addtional details about the package are available [here](https://github.com/jaytimm/wnomadds).
+I have developed a simple R package, `wnomadds`, that facilitates the plotting of roll call cutting lines and roll call polarities using `ggplot`.  While `wnominate` provides functionality for plotting cutting lines, only plotting in base R is supported.  The `wnm_get_cutlines` function extracts cutting line coordinates from `wnominate` model results, along with coordinates specifying the direction of majority Yea votes for a given roll call (ie, vote polarity). Addtional details about the package are available [here](https://github.com/jaytimm/wnomadds).
 
 ```{r message=FALSE, warning=FALSE}
 with_cuts <- wnomadds::wnm_get_cutlines(ideal_points_2D, 

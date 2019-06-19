@@ -26,11 +26,11 @@ scaling for typological analysis” (*Theoretical Linguistics* 34.1-37,
 
 This guide provides a brief summary of an R-based workflow for model
 implementation and the visualization of model results within the
-`ggplot` data visualization framework; a cross-linguistic data set of
+`ggplot` data visualization framework. A cross-linguistic data set of
 indefinite pronouns from Haspelmath (1997) is utilized (and made
 available) here for demonstration purposes. For more thoughtful
-discussions regarding theory and scaling procedures, see reference
-section.
+discussions regarding theory, scaling procedures & model interpretation,
+see reference section.
 
 ------------------------------------------------------------------------
 
@@ -163,8 +163,6 @@ list('1D' = ideal_points_1D$fits,
 
 ### Visualizing model results
 
-A series of plots built using the `ggplot` data visualization framework.
-
 #### A one-dimensional solution
 
 Extract legislator coordinates (ie, ideal points) from one-dimensional
@@ -256,14 +254,13 @@ base_2D +
 ### Cutting lines & roll call polarity via `wnomadds`
 
 I have developed a simple R package, `wnomadds`, that facilitates the
-plotting of roll call cutting lines and roll call polarities within the
-`ggplot` visualization paradigm. While `wnominate` provides
-functionality for plotting cutting lines, only plotting in base R is
-supported. The `wnm_get_cutlines` function extracts cutting line
-coordinates from `wnominate` model results, along with coordinates
-specifying the direction of majority Yea votes for a given roll call
-(ie, vote polarity). Addtional details about the package are available
-[here](https://github.com/jaytimm/wnomadds).
+plotting of roll call cutting lines and roll call polarities using
+`ggplot`. While `wnominate` provides functionality for plotting cutting
+lines, only plotting in base R is supported. The `wnm_get_cutlines`
+function extracts cutting line coordinates from `wnominate` model
+results, along with coordinates specifying the direction of majority Yea
+votes for a given roll call (ie, vote polarity). Addtional details about
+the package are available [here](https://github.com/jaytimm/wnomadds).
 
 ``` r
 with_cuts <- wnomadds::wnm_get_cutlines(ideal_points_2D, 
