@@ -26,7 +26,7 @@ see reference section.
     -   [Building MDS models](#building-mds-models)
     -   [Visualizing model results](#visualizing-model-results)
     -   [Cutting lines and roll call polarity via
-        wnomadds](#cutting-lines-and-roll-call-polarity-via-wnomadds)
+        `wnomadds`](#cutting-lines-and-roll-call-polarity-via-%60wnomadds%60)
     -   [Facet cutting lines by
         language](#facet-cutting-lines-by-language)
 -   [References](#references)
@@ -256,7 +256,7 @@ base_2D +
 
 ------------------------------------------------------------------------
 
-### Cutting lines and roll call polarity via wnomadds
+### Cutting lines and roll call polarity via `wnomadds`
 
 I have developed a simple R package, `wnomadds`, that facilitates the
 plotting of roll call cutting lines and roll call polarities using
