@@ -1,4 +1,4 @@
-------------------------------------------------------------------------
+## MDS for Linguists
 
 **An R-based guide for linguistic typologists** interested in applying
 [NOMINATE](https://voteview.com/about) multidimensional scaling (MDS)
@@ -18,7 +18,18 @@ available) here for demonstration purposes. For more thoughtful
 discussions regarding theory, scaling procedures & model interpretation,
 see reference section.
 
-------------------------------------------------------------------------
+-   [Getting started](#getting-started)
+    -   [Install and load required
+        packages](#install-and-load-required-packages)
+    -   [Load data](#load-data)
+-   [Using `wnominate` & `pscl`](#using-%60wnominate%60-&-%60pscl%60)
+    -   [Building MDS models](#building-mds-models)
+    -   [Visualizing model results](#visualizing-model-results)
+    -   [Cutting lines and roll call polarity via
+        wnomadds](#cutting-lines-and-roll-call-polarity-via-wnomadds)
+    -   [Facet cutting lines by
+        language](#facet-cutting-lines-by-language)
+-   [References](#references)
 
 ## Getting started
 
@@ -123,9 +134,10 @@ The resulting data structures are each comprised of seven elements:
 
 ``` r
 names(ideal_points_1D)
-## [1] "legislators" "rollcalls"   "dimensions"  "eigenvalues" "beta"       
-## [6] "weights"     "fits"
 ```
+
+    ## [1] "legislators" "rollcalls"   "dimensions"  "eigenvalues" "beta"       
+    ## [6] "weights"     "fits"
 
 #### Model comparison and fitness statistics
 
@@ -136,22 +148,23 @@ extracted from the `fits` element, and summarized below:
 list('1D' = ideal_points_1D$fits, 
      '2D' = ideal_points_2D$fits, 
      '3D' = ideal_points_3D$fits)
-## $`1D`
-## correctclass1D         apre1D          gmp1D 
-##      86.559998       0.539726       0.756875 
-## 
-## $`2D`
-## correctclass1D correctclass2D         apre1D         apre2D          gmp1D 
-##     86.3199997     93.1999969      0.5315068      0.7671233      0.7596588 
-##          gmp2D 
-##      0.8530398 
-## 
-## $`3D`
-## correctclass1D correctclass2D correctclass3D         apre1D         apre2D 
-##     85.5999985     94.8800049     95.4400024      0.5068493      0.8246576 
-##         apre3D          gmp1D          gmp2D          gmp3D 
-##      0.8438356      0.7662863      0.8526035      0.9352897
 ```
+
+    ## $`1D`
+    ## correctclass1D         apre1D          gmp1D 
+    ##      86.559998       0.539726       0.756875 
+    ## 
+    ## $`2D`
+    ## correctclass1D correctclass2D         apre1D         apre2D          gmp1D 
+    ##     86.3199997     93.1999969      0.5315068      0.7671233      0.7596588 
+    ##          gmp2D 
+    ##      0.8530398 
+    ## 
+    ## $`3D`
+    ## correctclass1D correctclass2D correctclass3D         apre1D         apre2D 
+    ##     85.5999985     94.8800049     95.4400024      0.5068493      0.8246576 
+    ##         apre3D          gmp1D          gmp2D          gmp3D 
+    ##      0.8438356      0.7662863      0.8526035      0.9352897
 
 ### Visualizing model results
 
@@ -189,7 +202,7 @@ ggplot()  +
   coord_flip()
 ```
 
-![](figures/figure-markdown_github/unnamed-chunk-13-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
 #### A two-dimensional solution
 
@@ -218,7 +231,7 @@ base_2D <- ggplot(data = ideal_points_2D$legislators,
 base_2D + ggtitle('Two-dimensional base plot')
 ```
 
-![](figures/figure-markdown_github/unnamed-chunk-14-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-14-1.png)
 
 **Add** labels, a title, and change the theme.
 
@@ -239,11 +252,11 @@ base_2D +
   ggtitle("W-NOMINATE Coordinates") 
 ```
 
-![](figures/figure-markdown_github/unnamed-chunk-15-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-15-1.png)
 
 ------------------------------------------------------------------------
 
-### Cutting lines & roll call polarity via `wnomadds`
+### Cutting lines and roll call polarity via wnomadds
 
 I have developed a simple R package, `wnomadds`, that facilitates the
 plotting of roll call cutting lines and roll call polarities using
@@ -264,21 +277,22 @@ A sample of the resulting data frame:
 
 ``` r
 head(with_cuts)
-##    Bill_Code        x_1         y_1        x_2         y_2       x_1a
-## 1:      X01e  0.2133632  0.97697296 -0.7595687 -0.65042705  0.2947332
-## 2:      X01j  0.9537808 -0.30050308 -0.9999306  0.01178267  0.9693951
-## 3:     X01jd -0.3446922  0.93871577 -0.7581260 -0.65210812 -0.4242334
-## 4:      X01n -0.7141289 -0.70001426 -0.9934111  0.11460499 -0.6733979
-## 5:      X02d  0.9963522 -0.08533627 -0.4672491  0.88412571  0.9478791
-## 6:      X02e  0.9537808 -0.30050308 -0.9999306  0.01178267  0.9693951
-##          y_1a       x_2a       y_2a
-## 1:  0.9283264 -0.6781987 -0.6990736
-## 2: -0.2028175 -0.9843163  0.1094682
-## 3:  0.9593875 -0.8376672 -0.6314364
-## 4: -0.6860501 -0.9526802  0.1285691
-## 5: -0.1585163 -0.5157222  0.8109456
-## 6: -0.2028175 -0.9843163  0.1094682
 ```
+
+    ##    Bill_Code        x_1         y_1        x_2         y_2       x_1a
+    ## 1:      X01e  0.2133632  0.97697296 -0.7595687 -0.65042705  0.2947332
+    ## 2:      X01j  0.9537808 -0.30050308 -0.9999306  0.01178267  0.9693951
+    ## 3:     X01jd -0.3446922  0.93871577 -0.7581260 -0.65210812 -0.4242334
+    ## 4:      X01n -0.7141289 -0.70001426 -0.9934111  0.11460499 -0.6733979
+    ## 5:      X02d  0.9963522 -0.08533627 -0.4672491  0.88412571  0.9478791
+    ## 6:      X02e  0.9537808 -0.30050308 -0.9999306  0.01178267  0.9693951
+    ##          y_1a       x_2a       y_2a
+    ## 1:  0.9283264 -0.6781987 -0.6990736
+    ## 2: -0.2028175 -0.9843163  0.1094682
+    ## 3:  0.9593875 -0.8376672 -0.6314364
+    ## 4: -0.6860501 -0.9526802  0.1285691
+    ## 5: -0.1585163 -0.5157222  0.8109456
+    ## 6: -0.2028175 -0.9843163  0.1094682
 
 #### Cutting lines & legislator coordinates
 
@@ -302,7 +316,7 @@ base_2D +
   labs(title="Cutting lines & W-NOMINATE Coordinates")
 ```
 
-![](figures/figure-markdown_github/unnamed-chunk-18-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-18-1.png)
 
 #### Cutting lines, roll call polarity & legislator coordinates
 
@@ -341,9 +355,9 @@ base_2D +
   labs(title = "W-NOMINATE Coordinates, cutting lines & roll call polarity")
 ```
 
-![](figures/figure-markdown_github/unnamed-chunk-19-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-19-1.png)
 
-#### Selected cutting lines & legislator coordinates
+#### Selected cutting lines and legislator coordinates
 
 ``` r
 selected <- c('X01e', 'X01j', 'X01jd', 'X01n')
@@ -392,7 +406,7 @@ base_2D +
   labs(title = "W-NOMINATE Coordinates & selected cutting lines")
 ```
 
-![](figures/figure-markdown_github/unnamed-chunk-20-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-20-1.png)
 
 ### Facet cutting lines by language
 
@@ -432,7 +446,7 @@ base_2D +
   labs(title = "W-NOMINATE Coordinates & language-specific cutting lines")
 ```
 
-![](figures/figure-markdown_github/unnamed-chunk-21-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-21-1.png)
 
 ------------------------------------------------------------------------
 
