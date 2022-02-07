@@ -1,17 +1,3 @@
--   [Getting started](#getting-started)
-    -   [Install and load required
-        packages](#install-and-load-required-packages)
-    -   [Load data](#load-data)
--   [Using `wnominate` & `pscl`](#using-wnominate-pscl)
-    -   [Building MDS models](#building-mds-models)
-    -   [Visualizing model results](#visualizing-model-results)
-    -   [Cutting lines & roll call polarity via
-        `wnomadds`](#cutting-lines-roll-call-polarity-via-wnomadds)
-    -   [Facet cutting lines by
-        language](#facet-cutting-lines-by-language)
--   [Using `anominate`](#using-anominate)
--   [References](#references)
-
 ------------------------------------------------------------------------
 
 **An R-based guide for linguistic typologists** interested in applying
@@ -21,7 +7,7 @@ techniques to linguistic data as presented in
 [Poole](https://polisci.ucsd.edu/about-our-people/faculty/faculty-directory/emeriti-faculty/poole-profile.html),
 “Inferring universals from grammatical variation: multidimensional
 scaling for typological analysis” (*Theoretical Linguistics* 34.1-37,
-2008)."
+2008).”
 [\[Abstract\]](https://www.degruyter.com/view/j/thli.2008.34.issue-1/thli.2008.001/thli.2008.001.xml)
 
 This guide provides a brief summary of an R-based workflow for model
@@ -34,14 +20,20 @@ see reference section.
 
 ------------------------------------------------------------------------
 
-Getting started
----------------
+## Getting started
 
 ### Install and load required packages
 
 ``` r
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(anominate, wnominate, pscl, ggplot2, knitr, devtools, ggrepel)
+pacman::p_load(# anominate, -- no longer maintained -- 
+               wnominate, 
+               pscl, 
+               ggplot2, 
+               knitr, 
+               devtools, 
+               ggrepel, 
+               data.table)
 ```
 
 ``` r
@@ -56,7 +48,8 @@ using data from 140 pronouns in 40 languages. Data are made available
 [here](https://github.com/jaytimm/mds_for_linguists_using_R/blob/master/resources/Indefprn13.txt).
 
 ``` r
-local_data <- '/home/jtimm/Desktop/GitHub/git_projects/mds_for_linguists/resources'
+## File paths will look differently for Windows/Mac
+local_data <- '/home/jtimm/Desktop/data/'
 ```
 
 Load data set:
@@ -82,22 +75,21 @@ value 9.
 knitr::kable(raw_data[,1:9]) 
 ```
 
-| X         |  X01n|  X01e|  X01i|  X01j|  X01jd|  X02d|  X02e|  X02i|
+| X         | X01n | X01e | X01i | X01j | X01jd | X02d | X02e | X02i |
 |:----------|-----:|-----:|-----:|-----:|------:|-----:|-----:|-----:|
-| spec.know |     6|     1|     6|     6|      6|     6|     6|     1|
-| spec.unkn |     6|     1|     1|     6|      6|     6|     6|     1|
-| irr.nonsp |     6|     1|     1|     6|      6|     1|     6|     1|
-| question  |     6|     1|     1|     1|      6|     1|     1|     1|
-| condit    |     6|     1|     1|     1|      6|     1|     1|     1|
-| indir.neg |     6|     1|     1|     1|      1|     1|     1|     1|
-| compar    |     6|     6|     1|     1|      1|     1|     1|     6|
-| dir.neg   |     1|     6|     6|     6|      6|     6|     6|     6|
-| free.ch   |     6|     6|     1|     6|      1|     1|     6|     6|
+| spec.know |    6 |    1 |    6 |    6 |     6 |    6 |    6 |    1 |
+| spec.unkn |    6 |    1 |    1 |    6 |     6 |    6 |    6 |    1 |
+| irr.nonsp |    6 |    1 |    1 |    6 |     6 |    1 |    6 |    1 |
+| question  |    6 |    1 |    1 |    1 |     6 |    1 |    1 |    1 |
+| condit    |    6 |    1 |    1 |    1 |     6 |    1 |    1 |    1 |
+| indir.neg |    6 |    1 |    1 |    1 |     1 |    1 |    1 |    1 |
+| compar    |    6 |    6 |    1 |    1 |     1 |    1 |    1 |    6 |
+| dir.neg   |    1 |    6 |    6 |    6 |     6 |    6 |    6 |    6 |
+| free.ch   |    6 |    6 |    1 |    6 |     1 |    1 |    6 |    6 |
 
 ------------------------------------------------------------------------
 
-Using `wnominate` & `pscl`
---------------------------
+## Using `wnominate` & `pscl`
 
 ### Building MDS models
 
@@ -197,7 +189,7 @@ ggplot()  +
   coord_flip()
 ```
 
-![](figures/figure-markdown_github/unnamed-chunk-12-1.png)
+![](figures/figure-markdown_github/unnamed-chunk-13-1.png)
 
 #### A two-dimensional solution
 
@@ -226,7 +218,7 @@ base_2D <- ggplot(data = ideal_points_2D$legislators,
 base_2D + ggtitle('Two-dimensional base plot')
 ```
 
-![](figures/figure-markdown_github/unnamed-chunk-13-1.png)
+![](figures/figure-markdown_github/unnamed-chunk-14-1.png)
 
 **Add** labels, a title, and change the theme.
 
@@ -247,7 +239,7 @@ base_2D +
   ggtitle("W-NOMINATE Coordinates") 
 ```
 
-![](figures/figure-markdown_github/unnamed-chunk-14-1.png)
+![](figures/figure-markdown_github/unnamed-chunk-15-1.png)
 
 ------------------------------------------------------------------------
 
@@ -310,7 +302,7 @@ base_2D +
   labs(title="Cutting lines & W-NOMINATE Coordinates")
 ```
 
-![](figures/figure-markdown_github/unnamed-chunk-17-1.png)
+![](figures/figure-markdown_github/unnamed-chunk-18-1.png)
 
 #### Cutting lines, roll call polarity & legislator coordinates
 
@@ -349,7 +341,7 @@ base_2D +
   labs(title = "W-NOMINATE Coordinates, cutting lines & roll call polarity")
 ```
 
-![](figures/figure-markdown_github/unnamed-chunk-18-1.png)
+![](figures/figure-markdown_github/unnamed-chunk-19-1.png)
 
 #### Selected cutting lines & legislator coordinates
 
@@ -400,7 +392,7 @@ base_2D +
   labs(title = "W-NOMINATE Coordinates & selected cutting lines")
 ```
 
-![](figures/figure-markdown_github/unnamed-chunk-19-1.png)
+![](figures/figure-markdown_github/unnamed-chunk-20-1.png)
 
 ### Facet cutting lines by language
 
@@ -440,120 +432,15 @@ base_2D +
   labs(title = "W-NOMINATE Coordinates & language-specific cutting lines")
 ```
 
-![](figures/figure-markdown_github/unnamed-chunk-20-1.png)
+![](figures/figure-markdown_github/unnamed-chunk-21-1.png)
 
 ------------------------------------------------------------------------
 
-Using `anominate`
------------------
-
-A **Bayesian** application of NOMINATE multidimensional scaling
-techniques. Model summary descriptives are based on code made available
-at the [alpha-NOMINATE](http://k7moa.com/alphanominate.htm) code
-repository.
-
-<br> **Build two-dimensional anominate model**
-
-``` r
-set.seed(99)
-anom_2d <- anominate::anominate(roll_obj, 
-                                dims=2, 
-                                polarity=c(1,2), 
-                                minvotes=10,
-                                lop=0.025)
-```
-
-Extract some relevant data points from `anominate` model results as data
-frame.
-
-``` r
-anom_plot <- data.frame(
-  label = names(summary(anom_2d$legislators[[1]])[[1]][,1]),
-  coord1D = unname(summary(anom_2d$legislators[[1]])[[1]][,1]),
-  coord2D = unname(summary(anom_2d$legislators[[2]])[[1]][,1]),
-  
-  coord1D_025 = unname(summary(anom_2d$legislators[[1]])[[2]][,1]),
-  coord1D_975 = unname(summary(anom_2d$legislators[[1]])[[2]][,5]),
-  coord2D_025 = unname(summary(anom_2d$legislators[[2]])[[2]][,1]),
-  coord2D_975 = unname(summary(anom_2d$legislators[[2]])[[2]][,5]),
-  stringsAsFactors = FALSE
-  )
-```
-
-<br> **Plot two-dimensional solution**
-
-``` r
-ggplot(anom_plot, 
-       aes(x=coord1D, 
-           y=coord2D,
-           label = label)) +
-  geom_point(size= 1.5) +
-  
-  ggrepel::geom_text_repel(
-    data  = anom_plot,
-    #nudge_y =  -0.025,
-    direction = "y",
-    hjust = 0, 
-    size = 4,
-    color = 'blue') +
-  
-# theme_classic() +
-  theme_minimal() +
-  
-  #xlim(-2.5, 2.5) + ylim(-1.5, 1.5) + 
-  xlab('First Dimension') + 
-  ylab('Second Dimension') +
-  ggtitle("A-NOMINATE Coordinates") 
-```
-
-![](figures/figure-markdown_github/unnamed-chunk-23-1.png)
-
-<br> **Add 95% credible intervals of legislator coordinates**
-
-``` r
-ggplot(anom_plot, 
-       aes(x=coord1D, 
-           y=coord2D,
-           label = label)) +
-
-  geom_segment(data = anom_plot,
-               aes(x = coord1D_025, 
-                   y = coord2D, 
-                   xend = coord1D_975, 
-                   yend = coord2D),
-               color = 'gray') +
-  
-  geom_segment(data = anom_plot,
-               aes(x = coord1D, 
-                   y = coord2D_025, 
-                   xend = coord1D, 
-                   yend = coord2D_975),
-               color = 'gray') +  
-
-  geom_point(size= 1.5,
-             color = 'blue') +
-  
-  theme_classic() +
-# theme_minimal() +
-  
-  #xlim(-2.5, 2.5) + ylim(-1.5, 1.5) + 
-  xlab('First Dimension') + 
-  ylab('Second Dimension') +
-  labs(title="A-NOMINATE Coordinates",
-       subtitle = "Coordinates w/95% credible intervals")
-```
-
-![](figures/figure-markdown_github/unnamed-chunk-24-1.png)
-
-------------------------------------------------------------------------
-
-References
-----------
+## References
 
 Royce Carroll, Christopher Hare, Jeffrey B. Lewis, James Lo, Keith T.
 Poole and Howard Rosenthal (2017). Alpha-NOMINATE: Ideal Point
-Estimator. R package version 0.6. URL
-<a href="http://k7moa.c" class="uri">http://k7moa.c</a>
+Estimator. R package version 0.6. URL <http://k7moa.c>
 om/alphanominate.htm
 
 Croft, W., & Poole, K. T. (2008). Inferring universals from grammatical
@@ -567,5 +454,4 @@ University Press.
 
 Keith Poole, Jeffrey Lewis, James Lo, Royce Carroll (2011). Scaling Roll
 Call Votes with wnominate in R. *Journal of Statistical Software*,
-42(14), 1-21. URL
-<a href="http://www.jstatsoft.org/v42/i14/" class="uri">http://www.jstatsoft.org/v42/i14/</a>.
+42(14), 1-21. URL <http://www.jstatsoft.org/v42/i14/>.

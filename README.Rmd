@@ -32,7 +32,14 @@ This guide provides a brief summary of an R-based workflow for model implementat
 
 ```{r message=FALSE, warning=FALSE}
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(anominate, wnominate, pscl, ggplot2, knitr, devtools, ggrepel)
+pacman::p_load(# anominate, -- no longer maintained -- 
+               wnominate, 
+               pscl, 
+               ggplot2, 
+               knitr, 
+               devtools, 
+               ggrepel, 
+               data.table)
 ```
 
 
@@ -47,8 +54,14 @@ library(wnomadds)
 Data set:  A 9 x 140 data frame: Nine indefinite pronominal meanings, using data from 140 pronouns in 40 languages.  Data are made available [here](https://github.com/jaytimm/mds_for_linguists_using_R/blob/master/resources/Indefprn13.txt).
 
 
-```{r}
-local_data <- '/home/jtimm/Desktop/GitHub/git_projects/mds_for_linguists/resources'
+```{r include=FALSE}
+local_data <- '/home/jtimm/pCloudDrive/GitHub/git-projects/mds_for_linguists/resources'
+```
+
+
+```{r eval=FALSE}
+## File paths will look differently for Windows/Mac
+local_data <- '/home/jtimm/Desktop/data/'
 ```
 
 
@@ -390,113 +403,6 @@ base_2D +
   labs(title = "W-NOMINATE Coordinates & language-specific cutting lines")
 ```
 
-
-
----
-
-
-## Using `anominate`
-
-A **Bayesian** application of NOMINATE multidimensional scaling techniques.  Model summary descriptives are based on code made available at the [alpha-NOMINATE](http://k7moa.com/alphanominate.htm) code repository.
-
-
-<br>
-**Build two-dimensional anominate model**
-
-```{r message=FALSE, warning=FALSE, results = 'hide'}
-set.seed(99)
-anom_2d <- anominate::anominate(roll_obj, 
-                                dims=2, 
-                                polarity=c(1,2), 
-                                minvotes=10,
-                                lop=0.025)
-```
-
-
-
-Extract some relevant data points from `anominate` model results as data frame.
-
-```{r}
-anom_plot <- data.frame(
-  label = names(summary(anom_2d$legislators[[1]])[[1]][,1]),
-  coord1D = unname(summary(anom_2d$legislators[[1]])[[1]][,1]),
-  coord2D = unname(summary(anom_2d$legislators[[2]])[[1]][,1]),
-  
-  coord1D_025 = unname(summary(anom_2d$legislators[[1]])[[2]][,1]),
-  coord1D_975 = unname(summary(anom_2d$legislators[[1]])[[2]][,5]),
-  coord2D_025 = unname(summary(anom_2d$legislators[[2]])[[2]][,1]),
-  coord2D_975 = unname(summary(anom_2d$legislators[[2]])[[2]][,5]),
-  stringsAsFactors = FALSE
-  )
-```
-
-
-<br>
-**Plot two-dimensional solution**
-
-
-```{r fig.height=6, fig.width=6}
-ggplot(anom_plot, 
-       aes(x=coord1D, 
-           y=coord2D,
-           label = label)) +
-  geom_point(size= 1.5) +
-  
-  ggrepel::geom_text_repel(
-    data  = anom_plot,
-    #nudge_y =  -0.025,
-    direction = "y",
-    hjust = 0, 
-    size = 4,
-    color = 'blue') +
-  
-# theme_classic() +
-  theme_minimal() +
-  
-  #xlim(-2.5, 2.5) + ylim(-1.5, 1.5) + 
-  xlab('First Dimension') + 
-  ylab('Second Dimension') +
-  ggtitle("A-NOMINATE Coordinates") 
-```
-
-
-
-<br>
-**Add 95% credible intervals of legislator coordinates**
-
-
-```{r fig.height=6, fig.width=6}
-ggplot(anom_plot, 
-       aes(x=coord1D, 
-           y=coord2D,
-           label = label)) +
-
-  geom_segment(data = anom_plot,
-               aes(x = coord1D_025, 
-                   y = coord2D, 
-                   xend = coord1D_975, 
-                   yend = coord2D),
-               color = 'gray') +
-  
-  geom_segment(data = anom_plot,
-               aes(x = coord1D, 
-                   y = coord2D_025, 
-                   xend = coord1D, 
-                   yend = coord2D_975),
-               color = 'gray') +  
-
-  geom_point(size= 1.5,
-             color = 'blue') +
-  
-  theme_classic() +
-# theme_minimal() +
-  
-  #xlim(-2.5, 2.5) + ylim(-1.5, 1.5) + 
-  xlab('First Dimension') + 
-  ylab('Second Dimension') +
-  labs(title="A-NOMINATE Coordinates",
-       subtitle = "Coordinates w/95% credible intervals")
-```
 
 
 
