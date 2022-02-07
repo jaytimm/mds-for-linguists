@@ -22,11 +22,12 @@ see reference section.
     -   [Install and load required
         packages](#install-and-load-required-packages)
     -   [Load data](#load-data)
--   [Using `wnominate` & `pscl`](#using-%60wnominate%60-&-%60pscl%60)
+-   [Using the wnominate and pscl
+    packages](#using-the-wnominate-and-pscl-packages)
     -   [Building MDS models](#building-mds-models)
     -   [Visualizing model results](#visualizing-model-results)
-    -   [Cutting lines and roll call polarity via
-        `wnomadds`](#cutting-lines-and-roll-call-polarity-via-%60wnomadds%60)
+    -   [Cutting lines and roll call polarity via the wnomadds
+        package](#cutting-lines-and-roll-call-polarity-via-the-wnomadds-package)
     -   [Facet cutting lines by
         language](#facet-cutting-lines-by-language)
 -   [References](#references)
@@ -100,7 +101,7 @@ knitr::kable(raw_data[,1:9])
 
 ------------------------------------------------------------------------
 
-## Using `wnominate` & `pscl`
+## Using the wnominate and pscl packages
 
 ### Building MDS models
 
@@ -256,7 +257,7 @@ base_2D +
 
 ------------------------------------------------------------------------
 
-### Cutting lines and roll call polarity via `wnomadds`
+### Cutting lines and roll call polarity via the wnomadds package
 
 I have developed a simple R package, `wnomadds`, that facilitates the
 plotting of roll call cutting lines and roll call polarities using

@@ -92,7 +92,7 @@ knitr::kable(raw_data[,1:9])
 ---
 
 
-## Using `wnominate` & `pscl`
+## Using the wnominate and pscl packages
 
 ### Building MDS models
 
@@ -234,7 +234,7 @@ base_2D +
 ---
 
 
-### Cutting lines and roll call polarity via `wnomadds`
+### Cutting lines and roll call polarity via the wnomadds package
 
 I have developed a simple R package, `wnomadds`, that facilitates the plotting of roll call cutting lines and roll call polarities using `ggplot`.  While `wnominate` provides functionality for plotting cutting lines, only plotting in base R is supported.  The `wnm_get_cutlines` function extracts cutting line coordinates from `wnominate` model results, along with coordinates specifying the direction of majority Yea votes for a given roll call (ie, vote polarity). Addtional details about the package are available [here](https://github.com/jaytimm/wnomadds).
 
